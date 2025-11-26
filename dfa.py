@@ -48,18 +48,15 @@ def draw_step(current, idx, sym=None):
             x, y = pos[u]
             j = seen.get((u, u), 0); seen[(u, u)] = j + 1
 
-
-            rad  = 0.5 if j % 2 == 0 else -0.6    # curva más compacta
-            dx   = 0.08                           # menos ancho de arco
-            offy = 0.22 if j % 2 == 0 else -0.22  # etiqueta más cerca
-
+            rad  = 0.5 if j % 2 == 0 else -0.6
+            dx   = 0.08
+            offy = 0.22 if j % 2 == 0 else -0.22
 
             loop = FancyArrowPatch((x - dx, y), (x + dx, y),
                 connectionstyle=f"arc3,rad={rad}",
                 arrowstyle='-|>', mutation_scale=18, linewidth=1.2,
                 shrinkA=6, shrinkB=6, zorder=5, clip_on=False)
             plt.gca().add_patch(loop)
-
 
             plt.text(x, y + offy, d["label"], fontsize=10, ha="center", va="center")
             continue
@@ -71,7 +68,7 @@ def draw_step(current, idx, sym=None):
 
 # === main ===
 if __name__=='__main__':
-    s = sys.argv[1] if len(sys.argv)>1 else input("Cadena (a/b): ").strip()
+    s = sys.argv[1] if len(sys.argv)>1 else input("Cadena (0/1): ").strip()
     try:
         steps, ok = run(s); print("ACEPTA" if ok else "RECHAZA", f"(estado final: {steps[-1]})")
         plt.ion(); draw_step(steps[0],0)
